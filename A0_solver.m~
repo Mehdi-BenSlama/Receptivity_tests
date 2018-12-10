@@ -1,16 +1,22 @@
-function [FA_0] = A0_solver(A0,X,a,lambda)
+function [FA_0] = A0_solver(A0,X,a)
 
+    % Constants
+    RHSconstant = gamma(3/4
+    
     % Left hand side for A0 equation
     LHS = A0.^2 - X.^2 + 2*a;
     
-    % Initialize Right Hand Side (RHS
-    RSA = zeros(size(A0));
+    % Initialize Right Hand Side (RHS)
+    RHS = zeros(size(A0));
     
+    % Calculate A0 second derivative
+    A0dd = SecondDerivative(A0,X)
+    
+    % Loop to compute integral
     
     for i = 1:length(X)
         
-        
-        
+
     end
     
     
