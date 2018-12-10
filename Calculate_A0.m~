@@ -1,0 +1,3 @@
+
+delS = 0.01;
+S = -1+delS:delS:
