@@ -1,23 +1,26 @@
-function [FA_0] = A0_solver(A0,X,a)
+function [FA_0] = A0_solver(A0,a)
 
+    N = numel(A0);
+    delS = 2/(N+1);
+    S = -1+delS:delS:1-delS;
+    X = tan(pi*s/2);
+    
     % Left hand side for A0 equation
     LHS = A0.^2 - X.^2 + 2*a;
     
     % Initialize Right Hand Side (RHS)
-    RHS = zeros(size(A0));
+    RHS = zeros(N,1);
     RHSconstant = gamma(3/4)/sqrt(2)/gamma(5/4);
     
     % Calculate A0 second derivative
     A0dd = SecondDerivative(A0,X);
     
     % Loop to compute integral
-    for i = 1:length(RHS)-2
-        RHS(i) = sum(...
-            (A0dd(i+1:end-1).*sqrt(X(i+1:end-1)-X(i)) + ...
-            A0dd(i+2:end).*sqrt(X(i+2:end)-X(i)))       ...
-            .*(X(i+2:end)-X(i+1:end-1))/2 ...
-            ) ...
-            + 2*(X(i+1)-X(i))^(1/2)*A0dd(i); % Head term
+    for i = 1:N-1
+        
+        fi = A0dd * pi/2 ./ (cos(pi * X/2).^2) .* ((S(i) - S)./(X(i) - X)).^0.25
+        
+        
     end
     RHS(end-1) = 2*(X(end)-X(end-1))^(1/2)*A0dd(end-1); % Head term
     RHS(end) = 0;
